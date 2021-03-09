@@ -1,16 +1,22 @@
 package com.bbx2.formacion.Enums;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
-@AllArgsConstructor
 public enum State {
 
-    ACTIVE("Active"),DISCONTINUED("Discontinued");
+    ACTIVE("Active"),
+    DISCONTINUED("Discontinued");
 
-    private String state;
 
+    String state;
 
+    State(String state) {
+
+        this.state = state;
+    }
 }
+

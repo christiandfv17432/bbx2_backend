@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class PriceReduction {
+public class PriceReductionDTO {
 
     private double reducePrice;
     private String startDate;

@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class Supplier {
+public class SupplierDTO {
 
     private String name;
     private String country;
