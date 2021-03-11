@@ -1,22 +1,37 @@
 package com.bbx2.formacion.model;
 
 import com.bbx2.formacion.Enums.State;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import org.aspectj.lang.annotation.RequiredTypes;
 import org.hibernate.annotations.Type;
 
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Entity
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
 public class Item {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(
+            name = "item_sequence",
+            sequenceName = "item_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+            generator = "item_sequence")
     private Long id;
-    @Column
+
+
+    private String itemCode;
+
+    @Column(nullable = false)
     private String description;
     @Column
     private Double price;
@@ -24,24 +39,17 @@ public class Item {
     @Enumerated(value = EnumType.STRING)
     private State state;
 
-    @ManyToMany(fetch = FetchType.LAZY , cascade = CascadeType.ALL)
-    @JoinTable(
-            name="items_suppliers",
-            joinColumns = {
-                    @JoinColumn(name="item_id",referencedColumnName = "id",nullable = false,updatable = false)
-            },inverseJoinColumns = @JoinColumn(name="supplier_id",referencedColumnName ="id",nullable = false,updatable = false)
-    )
-    private List<Supplier> suppliers = new ArrayList<>();
+    @ManyToMany(cascade = { CascadeType.MERGE, CascadeType.PERSIST })
+    @JoinTable(name = "ITEM_SUPPLIER", joinColumns = { @JoinColumn(name = "ITEM_ID") }, inverseJoinColumns = {
+            @JoinColumn(name = "SUPPLIER_ID") })
+    private Set<Supplier> suppliers = new HashSet<>();
 
     @OneToMany(targetEntity = PriceReduction.class)
-    private List<PriceReduction> priceReduction;
+    private Set<PriceReduction> priceReduction = new HashSet<>();;
     private String date;
     private String creator;
 
-    public Item(){
-
-    }
-
+    public Item(){}
 
 
 

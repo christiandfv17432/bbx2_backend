@@ -1,12 +1,18 @@
 package com.bbx2.formacion.model;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 @Entity
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
 public class Supplier {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,17 +20,11 @@ public class Supplier {
     private String name;
     private String country;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "suppliers")
+    @JsonIgnore
     private Set<Item> items = new HashSet<>();
 
     public Supplier(){}
-
-
-    public Supplier(Long id, String name, String country) {
-        this.id = id;
-        this.name = name;
-        this.country = country;
-    }
 
 
 }
