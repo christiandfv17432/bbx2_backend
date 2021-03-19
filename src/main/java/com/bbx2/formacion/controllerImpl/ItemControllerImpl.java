@@ -1,6 +1,7 @@
 package com.bbx2.formacion.controllerImpl;
 
 import com.bbx2.formacion.controller.ItemController;
+import com.bbx2.formacion.dto.ItemCustomDTO;
 import com.bbx2.formacion.dto.ItemDTO;
 import com.bbx2.formacion.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +31,13 @@ public class ItemControllerImpl implements ItemController {
         itemService.deleteItem(id);
     }
 
-    @GetMapping("/getItemById/{id}")
-    public ItemDTO getItem(@RequestParam(name = "id",required = true) Long id) {
+    @GetMapping("/getItemById/")
+    public ItemDTO getItem(@RequestParam Long id) {
         return itemService.getItem(id);
     }
+
+   /* @GetMapping("/findAllItems")
+    public List<ItemCustomDTO> getAllItemsCustom() {
+        return itemService.findAllItems();
+    }*/
 }

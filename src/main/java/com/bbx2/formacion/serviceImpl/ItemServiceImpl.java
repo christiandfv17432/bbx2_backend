@@ -1,11 +1,14 @@
 package com.bbx2.formacion.serviceImpl;
 
+import com.bbx2.formacion.dto.ItemCustomDTO;
 import com.bbx2.formacion.dto.ItemDTO;
 import com.bbx2.formacion.model.Item;
 import com.bbx2.formacion.repository.ItemRespository;
 import com.bbx2.formacion.service.ItemService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 
@@ -50,7 +53,9 @@ public class ItemServiceImpl implements ItemService {
         if(itemRespository.existsById(id)){
             Optional<Item> item = itemRespository.findById(id);
             itemRespository.delete(item.get());
+
         }
+
     }
 
     @Override
@@ -58,7 +63,25 @@ public class ItemServiceImpl implements ItemService {
         if(itemRespository.existsById(id)){
             Optional<Item> item = itemRespository.findById(id);
            return mapper.map(item.get(),ItemDTO.class);
+
         }
         return new ItemDTO();
     }
+/*
+    @Override
+    public List<ItemCustomDTO> findAllItems() {
+        List<Item> itemList = itemRespository.findAll();
+
+        if (itemList != null) {
+
+            List<ItemCustomDTO> itemDTOList = new ArrayList<>();
+
+            itemList.forEach((item -> {
+                itemDTOList.add(mapper.map(item,ItemCustomDTO.class));
+            }));
+            return itemDTOList;
+        }
+
+        return new ArrayList<ItemCustomDTO>();
+    }*/
 }

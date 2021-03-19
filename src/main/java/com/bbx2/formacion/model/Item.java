@@ -45,7 +45,7 @@ public class Item {
     private Set<Supplier> suppliers = new HashSet<>();
 
     @OneToMany(targetEntity = PriceReduction.class)
-    private Set<PriceReduction> priceReduction = new HashSet<>();;
+    private Set<PriceReduction> priceReduction = new HashSet<>();
     private String date;
     private String creator;
 
